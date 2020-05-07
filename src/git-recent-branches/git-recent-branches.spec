@@ -9,8 +9,6 @@ Patch0:    env.patch
 
 BuildArch: noarch
 
-BuildRequires: perl-Digest-SHA
-
 Requires: ruby
 
 %description
