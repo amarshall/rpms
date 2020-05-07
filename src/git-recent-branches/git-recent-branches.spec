@@ -1,5 +1,5 @@
 Name:      git-recent-branches
-Version:   0.3.1
+Version:   0.3.2
 Release:   1%{?dist}
 Summary:   Git command plugin to list recently checked-out branches in the current repository
 License:   MIT
@@ -23,8 +23,7 @@ Git command plugin to list recently checked-out branches in the current reposito
 # Interpretted
 
 %install
-mkdir -p %{buildroot}/usr/bin
-install -m 0755 bin/git-recent-branches %{buildroot}/usr/bin/%{name}
+%make_install prefix=/usr
 
 %files
 %license LICENSE
