@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index dacf3ac..871cce3 100755
+--- a/setup.py
++++ b/setup.py
+@@ -62,7 +62,7 @@ class Install(install):
+         return install.run(self)
+ 
+ install_requires = [
+-    'rply>=0.7.7',
++    'rply>=0.7.6',
+     'astor>=0.8',
+     'funcparserlib>=0.3.6',
+     'colorama']
