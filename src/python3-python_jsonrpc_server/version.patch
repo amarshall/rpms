@@ -1,0 +1,31 @@
+diff --git a/pyls_jsonrpc/__init__.py b/pyls_jsonrpc/__init__.py
+index 63eec14..a3748cf 100644
+--- a/pyls_jsonrpc/__init__.py
++++ b/pyls_jsonrpc/__init__.py
+@@ -1,4 +1 @@
+-# Copyright 2018 Palantir Technologies, Inc.
+-from ._version import get_versions
+-__version__ = get_versions()['version']
+-del get_versions
++__version__ = "$VERSION$"
+diff --git a/setup.py b/setup.py
+index 8c6876e..f708408 100755
+--- a/setup.py
++++ b/setup.py
+@@ -1,6 +1,5 @@
+ #!/usr/bin/env python
+ from setuptools import find_packages, setup
+-import versioneer
+ 
+ README = open('README.rst', 'r').read()
+ 
+@@ -11,8 +10,7 @@ setup(
+     # Versions should comply with PEP440.  For a discussion on single-sourcing
+     # the version across setup.py and the project code, see
+     # https://packaging.python.org/en/latest/single_source_version.html
+-    version=versioneer.get_version(),
+-    cmdclass=versioneer.get_cmdclass(),
++    version="$VERSION$",
+ 
+     description='JSON RPC 2.0 server library',
+ 
