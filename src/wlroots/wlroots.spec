@@ -3,7 +3,7 @@
 
 Name:           wlroots
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -28,6 +28,7 @@ Source2:        gpgkey-7BC79407090047CA-52CB6609B22DA89A.gpg
 # - make it self-contained
 # - only has targets for examples known to compile well (cf. "examples) global)
 Source3:        examples.meson.build
+Patch0:         rgb-full-range.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2

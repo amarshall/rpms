@@ -1,0 +1,60 @@
+From 8011439c17990b42333cae8d5c8099ac75563c4b Mon Sep 17 00:00:00 2001
+From: Devin Bayer <dev@doubly.so>
+Date: Tue, 30 Jun 2020 19:44:47 +0200
+Subject: [PATCH] set "Broadcast RGB" = "Full" for all connections
+
+---
+ backend/drm/atomic.c             | 7 +++++++
+ backend/drm/properties.c         | 1 +
+ include/backend/drm/properties.h | 1 +
+ 3 files changed, 9 insertions(+)
+
+diff --git a/backend/drm/atomic.c b/backend/drm/atomic.c
+index cf5367464..1d4c0cf2c 100644
+--- a/backend/drm/atomic.c
++++ b/backend/drm/atomic.c
+@@ -7,6 +7,9 @@
+ #include "backend/drm/iface.h"
+ #include "backend/drm/util.h"
+ 
++// connection property "Broadcast RGB" = "Full"
++#define DRM_MODE_BROADCAST_RGB_FULL 1
++
+ struct atomic {
+ 	drmModeAtomicReq *req;
+ 	bool failed;
+@@ -214,6 +217,10 @@ static bool atomic_crtc_commit(struct wlr_drm_backend *drm,
+ 	atomic_begin(&atom);
+ 	atomic_add(&atom, conn->id, conn->props.crtc_id,
+ 		crtc->pending.active ? crtc->id : 0);
++	if(conn->props.bcast_rgb) {
++		atomic_add(&atom, conn->id, conn->props.bcast_rgb,
++			DRM_MODE_BROADCAST_RGB_FULL);
++	}
+ 	if (crtc->pending_modeset && crtc->pending.active &&
+ 			conn->props.link_status != 0) {
+ 		atomic_add(&atom, conn->id, conn->props.link_status,
+diff --git a/backend/drm/properties.c b/backend/drm/properties.c
+index 0fafca7b7..9c4c36574 100644
+--- a/backend/drm/properties.c
++++ b/backend/drm/properties.c
+@@ -19,6 +19,7 @@ struct prop_info {
+ 
+ static const struct prop_info connector_info[] = {
+ #define INDEX(name) (offsetof(union wlr_drm_connector_props, name) / sizeof(uint32_t))
++	{ "Broadcast RGB", INDEX(bcast_rgb) },
+ 	{ "CRTC_ID", INDEX(crtc_id) },
+ 	{ "DPMS", INDEX(dpms) },
+ 	{ "EDID", INDEX(edid) },
+diff --git a/include/backend/drm/properties.h b/include/backend/drm/properties.h
+index fba444aa2..e09c43bc8 100644
+--- a/include/backend/drm/properties.h
++++ b/include/backend/drm/properties.h
+@@ -17,6 +17,7 @@ union wlr_drm_connector_props {
+ 		uint32_t link_status; // not guaranteed to exist
+ 		uint32_t path;
+ 		uint32_t vrr_capable; // not guaranteed to exist
++		uint32_t bcast_rgb; // not guaranteed to exist
+ 
+ 		// atomic-modesetting only
+ 
