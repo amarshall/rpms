@@ -1,6 +1,6 @@
 Name:           sway
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -9,6 +9,8 @@ Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.si
 # Drew DeVault (sway signing key) <sway@cmpwn.com>
 # Imported from http://pgp.mit.edu/pks/lookup?op=vindex&search=0x52CB6609B22DA89A
 Source2:        gpgkey-9DDA3B9FA5D58DD5392C78E652CB6609B22DA89A.gpg
+
+Patch0:         resize-border-tolerance.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
@@ -31,6 +33,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
 BuildRequires:  pkgconfig(wlroots) >= 0.11.0
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xkbcommon)
+%{?fc32:BuildRequires: mesa-libEGL-devel}
 # Dmenu is the default launcher in sway
 Recommends:     dmenu
 # In addition, xargs is recommended for use in such a launcher arrangement
