@@ -22,16 +22,13 @@ rm bin/heroku.cmd bin/node
 # Interpretted
 
 %install
-mkdir -p %{buildroot}/%{_datarootdir} %{buildroot}/%{_bindir}
-cp -r . %{buildroot}/%{_datarootdir}/
-ln -s %{buildroot}/%{_datarootdir}/bin/heroku %{buildroot}/%{_bindir}/heroku
-
-%check
-test "$(%{buildroot}/%{_bindir}/heroku --version | grep --only-matching '^Heroku/[0-9.]+ ')" = 'Heroku/%{version} '
+mkdir -p %{buildroot}/%{_datarootdir}/%{name} %{buildroot}/%{_bindir}
+cp -r . %{buildroot}/%{_datarootdir}/%{name}
+ln -s --relative %{buildroot}/%{_datarootdir}/%{name}/bin/heroku %{buildroot}/%{_bindir}/heroku
 
 %files
 %license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 %{_bindir}/heroku
-%{_datarootdir}/heroku
+%{_datadir}/%{name}/**/*
