@@ -1,4 +1,3 @@
-%global luaver 5.3
 %global luapkgdir %{_datadir}/lua/%{luaver}
 
 %global pkgname fennel
@@ -17,7 +16,7 @@ BuildArch:      noarch
 BuildRequires:  lua >= 5.1
 BuildRequires:  lua-filesystem
 BuildRequires:  make
-Requires:       lua(abi) = %{luaver}
+Requires:       lua(abi)
 
 
 %description
