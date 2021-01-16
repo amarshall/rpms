@@ -1,7 +1,7 @@
 %define modname hy
 
 Name:      python3-%{modname}
-Version:   0.18.0
+Version:   0.19.0
 Release:   1%{?dist}
 Summary:   A dialect of Lisp that’s embedded in Python
 License:   MIT
