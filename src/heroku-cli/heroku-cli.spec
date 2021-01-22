@@ -1,5 +1,5 @@
 Name:      heroku-cli
-Version:   7.42.6
+Version:   7.47.10
 Release:   1%{?dist}
 Summary:   Heroku CLI
 License:   ISC
@@ -24,11 +24,19 @@ rm bin/heroku.cmd bin/node
 %install
 mkdir -p %{buildroot}/%{_datarootdir}/%{name} %{buildroot}/%{_bindir}
 cp -r . %{buildroot}/%{_datarootdir}/%{name}
+rm %{buildroot}/%{_datarootdir}/%{name}/CHANGELOG.md
+rm %{buildroot}/%{_datarootdir}/%{name}/LICENSE
+rm %{buildroot}/%{_datarootdir}/%{name}/README.md
+rm -r %{buildroot}/%{_datarootdir}/%{name}/node_modules/.bin
 ln -s --relative %{buildroot}/%{_datarootdir}/%{name}/bin/heroku %{buildroot}/%{_bindir}/heroku
+
+%check
+%{buildroot}/%{_bindir}/heroku --version
 
 %files
 %license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 %{_bindir}/heroku
+%{_datadir}/%{name}/*
 %{_datadir}/%{name}/**/*
