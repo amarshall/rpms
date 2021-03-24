@@ -9,6 +9,7 @@ Patch0:    env.patch
 
 BuildArch: noarch
 
+BuildRequires: make
 Requires: ruby
 
 %description
