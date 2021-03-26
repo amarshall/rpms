@@ -1,0 +1,15 @@
+--- a/Makefile.orig	2018-12-17 19:46:32.127989328 +0100
++++ b/Makefile	2018-12-17 19:46:50.383552645 +0100
+@@ -12,11 +12,7 @@
+ PYRCC ?= pyrcc5
+ 
+ # Detect X11 rules dir
+-ifeq "$(wildcard /etc/X11/Xsession.d/ )" ""
+-	X11_RC_DIR = $(DESTDIR)/etc/X11/xinit/xinitrc.d/
+-else
+-	X11_RC_DIR = $(DESTDIR)/etc/X11/Xsession.d/
+-endif
++X11_RC_DIR = $(DESTDIR)/etc/X11/Xsession.d/
+ 
+ # -----------------------------------------------------------------------------------------------------------------------------------------
+ 

@@ -17,8 +17,7 @@ index cf5367464..1d4c0cf2c 100644
  #include "backend/drm/iface.h"
  #include "backend/drm/util.h"
  
-+// connection property "Broadcast RGB" = "Full"
-+#define DRM_MODE_BROADCAST_RGB_FULL 1
++#define DRM_MODE_OUTPUT_CSC_BYPASS 0
 +
  struct atomic {
  	drmModeAtomicReq *req;
@@ -28,8 +27,8 @@ index cf5367464..1d4c0cf2c 100644
  	atomic_add(&atom, conn->id, conn->props.crtc_id,
  		crtc->pending.active ? crtc->id : 0);
 +	if(conn->props.bcast_rgb) {
-+		atomic_add(&atom, conn->id, conn->props.bcast_rgb,
-+			DRM_MODE_BROADCAST_RGB_FULL);
++		atomic_add(&atom, conn->id, conn->props.output_csc,
++			DRM_MODE_OUTPUT_CSC_BYPASS);
 +	}
  	if (crtc->pending_modeset && crtc->pending.active &&
  			conn->props.link_status != 0) {
@@ -42,7 +41,7 @@ index 0fafca7b7..9c4c36574 100644
  
  static const struct prop_info connector_info[] = {
  #define INDEX(name) (offsetof(union wlr_drm_connector_props, name) / sizeof(uint32_t))
-+	{ "Broadcast RGB", INDEX(bcast_rgb) },
++	{ "output_csc", INDEX(output_csc) },
  	{ "CRTC_ID", INDEX(crtc_id) },
  	{ "DPMS", INDEX(dpms) },
  	{ "EDID", INDEX(edid) },
@@ -54,7 +53,7 @@ index fba444aa2..e09c43bc8 100644
  		uint32_t link_status; // not guaranteed to exist
  		uint32_t path;
  		uint32_t vrr_capable; // not guaranteed to exist
-+		uint32_t bcast_rgb; // not guaranteed to exist
++		uint32_t output_csc; // not guaranteed to exist
  
  		// atomic-modesetting only
  
