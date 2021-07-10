@@ -1,0 +1,36 @@
+From 2949582ff5f39b1de51eacc92de6cfacf1b5ab75 Mon Sep 17 00:00:00 2001
+From: Eisuke Kawashima <e-kwsm@users.noreply.github.com>
+Date: Sun, 15 Mar 2020 01:57:20 +0900
+Subject: [PATCH] Install and use future only if python2
+
+---
+ pyls_mypy/__init__.py | 7 +++++--
+ requirements.txt      | 2 +-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/pyls_mypy/__init__.py b/pyls_mypy/__init__.py
+index 3fa6e5a..fbe5d98 100644
+--- a/pyls_mypy/__init__.py
++++ b/pyls_mypy/__init__.py
+@@ -1,6 +1,9 @@
+-from future.standard_library import install_aliases
+ from ._version import get_versions
++import sys
++
++if sys.version_info[0] < 3:
++    from future.standard_library import install_aliases
++    install_aliases()
+ 
+-install_aliases()
+ __version__ = get_versions()['version']
+ del get_versions
+diff --git a/requirements.txt b/requirements.txt
+index 7e5589b..b6a814b 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-future
++future;python_version < '3'
+ flake8
+ configparser
+ python-language-server

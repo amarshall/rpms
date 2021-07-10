@@ -1,0 +1,19 @@
+--- a/setup.py
++++ b/setup.py
+@@ -1,6 +1,7 @@
+ #!/usr/bin/env python
+ from setuptools import find_packages, setup
+ import versioneer
++import os
+ 
+ README = open('README.rst', 'r').read()
+ 
+@@ -11,7 +12,7 @@
+     # Versions should comply with PEP440.  For a discussion on single-sourcing
+     # the version across setup.py and the project code, see
+     # https://packaging.python.org/en/latest/single_source_version.html
+-    version=versioneer.get_version(),
++    version=os.getenv('VERSION'),
+     cmdclass=versioneer.get_cmdclass(),
+ 
+     description='Mypy linter for the Python Language Server',
